@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('main');
 
+//autenticacion
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+//tareas
+Route::get('/tasks', 'TaskController@index');
+Route::post('/tasks', 'TaskController@store')->name('tasks.store');
+Route::delete('/tasks/{$id}', 'TaskController@destroy');
