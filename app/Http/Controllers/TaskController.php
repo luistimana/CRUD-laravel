@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
 use Illuminate\Http\Request;
+
 
 class TaskController extends Controller
 {
@@ -38,6 +40,23 @@ class TaskController extends Controller
             'title' => $request->title
         ]);
 
+        return redirect('/tasks');
+    }
+     /**
+     * Destroy the given task.
+     *
+     * @param  Task id  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $task = Task::find($id);
+
+        if (empty($task)) {
+            return redirect('/tasks');
+        }
+
+        $task->delete();
         return redirect('/tasks');
     }
 }
