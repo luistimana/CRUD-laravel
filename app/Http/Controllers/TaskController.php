@@ -10,12 +10,26 @@ class TaskController extends Controller
     {
         $this->middleware('auth');
     }
+    /**
+     * Muestra una lista de todas las tareas del usuario.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function index(Request $request){
 
-    public function index(){
-        return view('tasks.index');
+        $tasks = $request->user()->tasks()->orderBy('created_at', 'DESC')->get();
+        return view('tasks.index', ['tasks' => $tasks]);
     }
 
+    /**
+     * Crea una nueva tarea.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
     public function store(Request $request){
+
         $this->validate($request, [
             'title' => 'required|max:255'
         ]);
