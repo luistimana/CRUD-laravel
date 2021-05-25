@@ -14,4 +14,16 @@ class TaskController extends Controller
     public function index(){
         return view('tasks.index');
     }
+
+    public function store(Request $request){
+        $this->validate($request, [
+            'title' => 'required|max:255'
+        ]);
+
+        $request->user()->tasks()->create([
+            'title' => $request->title
+        ]);
+
+        return redirect('/tasks');
+    }
 }
