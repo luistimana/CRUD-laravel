@@ -22,4 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 //tareas
 Route::get('/tasks', 'TaskController@index');
 Route::post('/tasks', 'TaskController@store')->name('tasks.store');
-Route::delete('/tasks/{id}', 'TaskController@destroy')->name('tasks.destroy'); 
+Route::get('/tasks/edit/{id}', 'TaskController@editView')->name('tasks.edit_view');
+Route::post('/tasks/{id}', 'TaskController@edit')->name('tasks.edit');
+Route::delete('/tasks/{id}', 'TaskController@destroy')->name('tasks.destroy');

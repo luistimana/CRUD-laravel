@@ -43,7 +43,47 @@ class TaskController extends Controller
         return redirect('/tasks');
     }
      /**
-     * Destroy the given task.
+     * Eliminar vista de edición
+     *
+     * @param  Task id  $id
+     * @return Response
+     */
+    public function editView($id)
+    {
+        $task = Task::find($id);
+
+        if (empty($task)) {
+            return redirect('/tasks');
+        }
+
+        return view('tasks.edit', ['task' => $task]);
+    }
+
+     /**
+     * Edite la tarea dada.
+     *
+     * @param  Request  $request
+     * @param  Task id  $id
+     * @return Response
+     */
+    public function edit(Request $request, $id)
+    {
+        $this->validate($request, [
+            'title' => 'required|max:255'
+        ]);
+
+        $task = Task::find($id);
+
+        if (empty($task)) {
+            return redirect('/tasks');
+        }
+
+        $task->title = $request->title;
+        $task->save();
+        return redirect('/tasks');
+    }
+     /**
+     * Elimina la tarea dada.
      *
      * @param  Task id  $id
      * @return Response
